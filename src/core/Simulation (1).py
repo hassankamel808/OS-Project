@@ -52,14 +52,14 @@ class Simulation:
         else:
             self.delay = 1.0 / speed_factor
 
-    def _run_simulation(self, useDelay: bool = True):
+    def _run_simulation(self, use_delay: bool = True):
         while (self.running) and (not self.scheduler.all_processes_completed()):
             current_process = self.scheduler.run_tick()
 
             pid = current_process.get_pid() if current_process else None
             self.processes_timeline.append({"time": self.scheduler.get_current_time(), "pid": pid})
 
-            if useDelay:
+            if use_delay:
                 time.sleep(self.delay)
             
             yield current_process
