@@ -57,14 +57,17 @@ class Scheduler(ABC):
     def get_average_response_time(self):
         return Analytics.average_response_time(self.processes)
 
-    def find_proccess_by_pid(self, pid: int) -> Optional[Process]:
+    def find_process_by_pid(self, pid: int) -> Optional[Process]:
         for process in self.processes:
             if process.get_pid() == pid:
                 return process
         return None
 
+    def find_proccess_by_pid(self, pid: int) -> Optional[Process]:
+        return self.find_process_by_pid(pid)
+
     def remove_process(self, pid: int) -> None:
-        process = self.find_proccess_by_pid(pid)
+        process = self.find_process_by_pid(pid)
         if process in self.processes:
             self.processes.remove(process)
             if process in self.completed_processes:
