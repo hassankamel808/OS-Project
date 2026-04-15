@@ -12,7 +12,7 @@ class SJFPreemptiveScheduler(Scheduler):
         if not ready_processes:
             return None
 
-        return sorted(
+        return min(
             ready_processes,
             key=lambda p: (p.get_burst_time(), p.get_arrival_time(), p.get_pid())
-        )[0]
+        )
