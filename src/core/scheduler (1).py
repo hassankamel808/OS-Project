@@ -77,7 +77,7 @@ class Scheduler(ABC):
     def get_next_process(self, current_time) -> Optional[Process]:
         pass
 
-    def run_tick(self) -> Process:
+    def run_tick(self) -> Optional[Process]:
         next_process = self.get_next_process(self.current_time)
         time_used = self.time_slice
         
