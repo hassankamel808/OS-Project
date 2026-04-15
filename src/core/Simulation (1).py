@@ -2,7 +2,6 @@ import time
 from src.models.process import Process
 from src.core.scheduler import Scheduler
 from src.core.analytics import Analytics 
-import threading
 
 class Simulation:
     def __init__(self, scheduler: Scheduler, delay: float = 1.0):
