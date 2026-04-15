@@ -17,9 +17,9 @@ class SJFNonPreemptiveScheduler(Scheduler):
             self.current_running_process = None
             return None
 
-        self.current_running_process = sorted(
+        self.current_running_process = min(
             ready_processes,
             key=lambda p: (p.get_burst_time(), p.get_arrival_time(), p.get_pid())
-        )[0]
+        )
 
         return self.current_running_process
