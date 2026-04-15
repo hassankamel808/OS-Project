@@ -30,9 +30,9 @@ class PriorityNonPreemptiveScheduler(Scheduler):
 
         # Select process with highest priority (lowest number)
         # Tie-break by arrival time, then PID
-        self.current_process = sorted(
+        self.current_process = min(
             ready_processes,
             key=lambda p: (p.get_priority(), p.get_arrival_time(), p.get_pid()),
-        )[0]
+        )
 
         return self.current_process
