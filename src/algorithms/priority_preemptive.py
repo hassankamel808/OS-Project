@@ -25,12 +25,12 @@ class PriorityPreemptiveScheduler(Scheduler):
             self.current_process = None
             return None
 
-        # Sort by priority (lower number = higher priority)
+        # Select the highest-priority ready process (lowest priority number)
         # Tie-break by arrival time, then PID
-        next_process = sorted(
+        next_process = min(
             ready_processes,
             key=lambda p: (p.get_priority(), p.get_arrival_time(), p.get_pid())
-        )[0]
+        )
 
         # Update current process (preemption happens automatically)
         self.current_process = next_process
