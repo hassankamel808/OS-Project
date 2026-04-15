@@ -22,7 +22,7 @@ class Analytics:
     def cpu_utilization(processes, total_time):
         if total_time == 0:
             return 0.0
-        busy_time = sum(p.get_burst_time() for p in processes)
+        busy_time = sum(p.burst_time for p in processes)
         return (busy_time / total_time) * 100
 
     @staticmethod
