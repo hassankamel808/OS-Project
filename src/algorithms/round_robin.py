@@ -33,23 +33,23 @@ class RoundRobinScheduler(Scheduler):
         """
         Get the next process to execute based on Round Robin scheduling.
         """
-        # Add newly arrived processes to ready queue (excluding current process)
+        # 1. Add NEW arrivals to the queue first
         for process in self.get_arrived_processes(current_time):
             if (process not in self.ready_queue) and (process != self.current_process):
                 if not process.is_completed():
                     self.ready_queue.append(process)
 
-        # Check if current process needs to be preempted or completed
+        # 2. Handle the current process (Preemption or Completion)
         if self.current_process:
-            # If quantum expired OR process just completed
             if self.quantum_timer >= self.time_quantum or self.current_process.is_completed():
                 if not self.current_process.is_completed():
-                    # Put back in queue if not finished
+                    # NEW arrivals are already in the queue, so this goes BEHIND them
                     self.ready_queue.append(self.current_process)
+                
                 self.current_process = None
                 self.quantum_timer = 0
 
-        # Select next process if none running
+        # 3. Pick the next one
         if not self.current_process and self.ready_queue:
             self.current_process = self.ready_queue.popleft()
             self.quantum_timer = 0
